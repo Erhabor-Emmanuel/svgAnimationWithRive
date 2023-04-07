@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_animations_with_rive_tutorial/splash_screen.dart';
 import 'music_player_page.dart';
 
 void main() => runApp(AppWidget());
@@ -9,7 +10,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter SVG Animations With Rive',
-      home: MusicPlayerPage(),
+      home: SplashScreen(),
     );
   }
 }

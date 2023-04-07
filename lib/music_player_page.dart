@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 
 class MusicPlayerPage extends StatefulWidget {
   const MusicPlayerPage({Key? key}) : super(key: key);
@@ -8,6 +9,22 @@ class MusicPlayerPage extends StatefulWidget {
 }
 
 class _MusicPlayerPageState extends State<MusicPlayerPage> {
+  late RiveAnimationController _prevButtonController;
+  late RiveAnimationController _nextButtonController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _prevButtonController = OneShotAnimation(
+      'onPrev',
+      autoplay: false,
+    );
+    _nextButtonController = OneShotAnimation(
+        'onNext',
+      autoplay: false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
