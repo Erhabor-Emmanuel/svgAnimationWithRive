@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
 
 class MusicPlayerPage extends StatefulWidget {
@@ -12,6 +13,12 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
   late RiveAnimationController _prevButtonController;
   late RiveAnimationController _nextButtonController;
 
+  void _playTrackChangeAnimation(RiveAnimationController controller){
+    if(controller.isActive == false){
+      controller.isActive = true;
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -24,6 +31,11 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
         'onNext',
       autoplay: false,
     );
+
+    rootBundle.load('assets/PlayPauseButton.riv').then((data) {
+      final file = RiveFile.import(data);
+      final artboard = file.mainArtboard;
+    });
   }
 
   @override
@@ -45,6 +57,40 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                 shape: BoxShape.circle,
               ),
             ),
+            SizedBox(height: 60,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTapDown: (_)=> _playTrackChangeAnimation(_prevButtonController),
+                  child: SizedBox(
+                    width: 115,
+                    height: 115,
+                    child: RiveAnimation.asset(
+                        'assets/PrevTrackButton.riv',
+                      controllers: [
+                        _prevButtonController,
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTapDown: (_){
+                    _playTrackChangeAnimation(_nextButtonController);
+                  },
+                  child: SizedBox(
+                    width: 115,
+                    height: 115,
+                    child: RiveAnimation.asset(
+                      'assets/NextTrackButton.riv',
+                      controllers: [
+                        _nextButtonController,
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
