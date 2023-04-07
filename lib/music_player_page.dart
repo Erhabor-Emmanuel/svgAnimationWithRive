@@ -13,6 +13,9 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
   late RiveAnimationController _prevButtonController;
   late RiveAnimationController _nextButtonController;
 
+  SMIInput<bool>? _playButtonInput;
+  Artboard? _playButtonArtboard;
+
   void _playTrackChangeAnimation(RiveAnimationController controller){
     if(controller.isActive == false){
       controller.isActive = true;
@@ -35,6 +38,10 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
     rootBundle.load('assets/PlayPauseButton.riv').then((data) {
       final file = RiveFile.import(data);
       final artboard = file.mainArtboard;
+      var controller = StateMachineController.fromArtboard(artboard, 'PlayPauseButton');
+      if(controller != null){
+
+      }
     });
   }
 
