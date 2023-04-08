@@ -12,6 +12,7 @@ class MusicPlayerPage extends StatefulWidget {
 class _MusicPlayerPageState extends State<MusicPlayerPage> {
   late RiveAnimationController _prevButtonController;
   late RiveAnimationController _nextButtonController;
+  late RiveAnimationController _soundWaveController;
 
   SMIInput<bool>? _playButtonInput;
   Artboard? _playButtonArtboard;
@@ -38,6 +39,10 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
     _prevButtonController = OneShotAnimation(
       'onPrev',
       autoplay: false,
+    );
+    _soundWaveController = SimpleAnimation(
+        'loopingAnimation',
+        autoplay: false,
     );
     _nextButtonController = OneShotAnimation(
         'onNext',
