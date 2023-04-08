@@ -27,10 +27,16 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
   void _playButtonAnimation(){
     if(_playButtonInput?.value == false && _playButtonInput?.controller.isActive == false){
       _playButtonInput?.value = true;
+      _toggleWaveAnimation();
     }else if(_playButtonInput?.value == true && _playButtonInput?.controller.isActive == false){
       _playButtonInput?.value = false;
+      _toggleWaveAnimation(); 
     }
   }
+
+  void _toggleWaveAnimation() => setState(
+          () => _soundWaveController.isActive = !_soundWaveController.isActive
+  );
 
   @override
   void initState() {
@@ -127,7 +133,19 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                   ),
                 ),
               ],
-            )
+            ),
+            SizedBox(height: 40,),
+            Container(
+              height: 100,
+              width: 400,
+              child: RiveAnimation.asset(
+                'assets/SoundWave.riv',
+                fit: BoxFit.contain,
+                controllers: [
+                  _soundWaveController
+                ],
+              ),
+            ),
           ],
         ),
       ),
