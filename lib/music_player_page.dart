@@ -22,6 +22,15 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
     }
   }
 
+  //This function is for our play button animation
+  void _playButtonAnimation(){
+    if(_playButtonInput?.value == false && _playButtonInput?.controller.isActive == false){
+      _playButtonInput?.value = true;
+    }else if(_playButtonInput?.value == true && _playButtonInput?.controller.isActive == false){
+      _playButtonInput?.value = false;
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,8 +49,12 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
       final artboard = file.mainArtboard;
       var controller = StateMachineController.fromArtboard(artboard, 'PlayPauseButton');
       if(controller != null){
-
+        //Here we added the controller assigned to our StateMachine to the artboard variable
+        artboard.addController(controller);
+        //We assigned the bool condition in our Rive app to the _playButtonInput
+        _playButtonInput = controller.findInput('isPlaying');
       }
+      setState(() => _playButtonArtboard = artboard);
     });
   }
 
@@ -65,6 +78,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
               ),
             ),
             SizedBox(height: 60,),
+            _playButtonArtboard == null? SizedBox():
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -78,6 +92,17 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                       controllers: [
                         _prevButtonController,
                       ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTapDown: (_)=> _playButtonAnimation(),
+                  child: SizedBox(
+                    width: 125,
+                    height: 125,
+                    child: Rive(
+                        artboard: _playButtonArtboard!,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ),
